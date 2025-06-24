@@ -134,3 +134,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# TypeScript output
+dist/
+
+# Vite cache
+.vite/
+
+*storybook.log
+storybook-static

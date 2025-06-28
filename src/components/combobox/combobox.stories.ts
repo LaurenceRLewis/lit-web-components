@@ -1,21 +1,21 @@
 import { html } from 'lit';
 import type { StoryFn } from '@storybook/web-components';
 import './combobox';
-import description from './combobox.description';
+// import description from './combobox.description';
 
 export default {
-  title: 'Components/Combobox (List)',
+  title: 'Components/Combobox',
   component: 'aria-combobox',
   parameters: {
-    docs: {
-      page: () => html`
-        <storybook-title>ARIA Combobox (List)</storybook-title>
-        <storybook-subtitle>Lit component with aria-autocomplete="list"</storybook-subtitle>
-        ${description()}
-        <storybook-primary />
-        <storybook-argtypes />
-      `,
-    },
+    // docs: {
+    //   page: () => html`
+    //     <storybook-title>ARIA Combobox (List)</storybook-title>
+    //     <storybook-subtitle>Lit component with aria-autocomplete="list"</storybook-subtitle>
+    //     ${description()}
+    //     <storybook-primary />
+    //     <storybook-argtypes />
+    //   `,
+    // },
   },
   argTypes: {
     showHelpText: {
@@ -60,5 +60,5 @@ Default.args = {
   showAllOptionsAfterSelection: 'Yes',
 };
 
-export const Documentation = () => html`${description()}`;
-Documentation.parameters = { docsOnly: true };
+// export const Documentation = () => html`${description()}`;
+// Documentation.parameters = { docsOnly: true };

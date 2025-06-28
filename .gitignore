@@ -143,3 +143,6 @@ dist/
 
 *storybook.log
 storybook-static
+
+# Local Netlify folder
+.netlify

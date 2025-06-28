@@ -4,7 +4,7 @@ const Template = ({ label }: { label: string }) =>
   `<form-input label="${label}"></form-input>`;
 
 export default {
-  title: 'Components/Input',
+  title: 'Basic Components/Input',
   tags: ['autodocs'],
   component: 'form-input',
   argTypes: {

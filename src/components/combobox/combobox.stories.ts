@@ -4,7 +4,7 @@ import './combobox';
 // import description from './combobox.description';
 
 export default {
-  title: 'Components/Combobox',
+  title: 'Complex Components/Combobox',
   component: 'aria-combobox',
   parameters: {
     // docs: {

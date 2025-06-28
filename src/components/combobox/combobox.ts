@@ -192,6 +192,7 @@ export class AriaCombobox extends LitElement {
                   aria-label="Toggle list of Australian towns and cities"
                   aria-controls="combobox-listbox"
                   aria-expanded=${this.showOptions}
+                  tabindex="-1" 
                 >
                   ${this.showOptions ? "▲" : "▼"}
                 </button>

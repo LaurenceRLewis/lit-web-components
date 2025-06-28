@@ -6,7 +6,13 @@ const config: StorybookConfig = {
     name: '@storybook/web-components-vite',
     options: {}
   },
-  addons: ['@storybook/addon-essentials'],
+  addons: [
+    // '@storybook/addon-essentials',
+    // '@storybook/addon-a11y',
+    // '@storybook/addon-controls',
+    // '@storybook/addon-docs',
+    // '@storybook/addon-actions',
+  ],
 };
 
 export default config;

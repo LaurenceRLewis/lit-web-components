@@ -45,9 +45,10 @@ export const comboboxStyles = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 38px;
-    background-color: var(--purple-700, #5941a9);
+    width: 30px;
+    height: 29px;
+    background-color: var(--black, #262626);
+    color: var(--white, #ffffff);
     border: none;
     border-radius: 50%;
     cursor: pointer;

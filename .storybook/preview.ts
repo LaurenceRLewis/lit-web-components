@@ -18,7 +18,7 @@ const preview: Preview = {
       storySort: {
         order: [
           'Components',
-          ['Combobox', 'Input', 'Tabs (Segmented Controls)', 'Tabs Documentation'],
+          ['Combobox', 'Tabs'],
         ],
       },
     },

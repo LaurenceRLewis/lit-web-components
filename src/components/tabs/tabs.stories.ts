@@ -100,7 +100,7 @@ export const ResponsiveTabs: StoryObj = {
   },
 };
 
-export const Documentation = {
+export const Docs = {
   render: () => TabsDescription,
   parameters: {
     docsOnly: true,

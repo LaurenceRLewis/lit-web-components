@@ -59,6 +59,3 @@ Default.args = {
   showToggleButton: true,
   showAllOptionsAfterSelection: 'Yes',
 };
-
-// export const Documentation = () => html`${description()}`;
-// Documentation.parameters = { docsOnly: true };

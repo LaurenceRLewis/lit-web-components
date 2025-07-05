@@ -1,7 +1,10 @@
 import { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(ts|js)'],
+  stories: [
+  '../src/stories/**/*.stories.@(ts|js)',         // your top-level docs
+  '../src/components/**/*.stories.@(ts|js)',      // your components
+],
   framework: {
     name: '@storybook/web-components-vite',
     options: {}

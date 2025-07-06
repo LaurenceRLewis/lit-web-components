@@ -11,8 +11,8 @@ const defaultTabs = [
       <h3>About HTML & Accessibility</h3>
       <p>
         HTML is the foundation of accessible, semantic content. Using
-        appropriate tags enables both human and machine readability,
-        improves SEO, and supports assistive technology.
+        appropriate tags enables both human and machine readability, improves
+        SEO, and supports assistive technology.
       </p>
     `,
   },
@@ -22,8 +22,8 @@ const defaultTabs = [
     content: html`
       <h3>About ARIA & Accessibility</h3>
       <p>
-        ARIA (Accessible Rich Internet Applications) enhances web
-        accessibility by providing semantic meaning to dynamic interfaces.
+        ARIA (Accessible Rich Internet Applications) enhances web accessibility
+        by providing semantic meaning to dynamic interfaces.
       </p>
     `,
   },
@@ -33,8 +33,8 @@ const defaultTabs = [
     content: html`
       <h3>About Web Components & Accessibility</h3>
       <p>
-        Web Components enable encapsulated UI elements with Shadow DOM,
-        allowing teams to create reusable, framework-agnostic widgets.
+        Web Components enable encapsulated UI elements with Shadow DOM, allowing
+        teams to create reusable, framework-agnostic widgets.
       </p>
     `,
   },
@@ -49,26 +49,34 @@ export default {
   },
   argTypes: {
     tabAttributeMode: {
-      name: "Tab ARIA Attribute",
+      name: "Role tab attribute",
       control: { type: "select" },
       options: ["aria-selected", "aria-expanded", "aria-chosen"],
       description: "Applies valid or invalid ARIA attributes to tabs.",
     },
+    tabListRole: {
+      name: "Tablist role",
+      control: { type: "select" },
+      options: ["tablist", "list", ""],
+      description:
+        "Override or remove the role attribute on the tablist container.",
+    },
     triggerActivation: {
-      name: "Trigger Activation",
+      name: "Trigger Activation Mode",
       control: { type: "select" },
       options: ["manual", "automated"],
-      description: "Switch between manual or automated tab activation on focus.",
+      description:
+        "Switch between manual or automated tab activation on focus.",
     },
     tabPanelRole: {
-      name: "Tab panel role",
+      name: "Tabpanel, Region or No Role",
       control: { type: "select" },
       options: ["tabpanel", "region", ""],
       description:
         "Testing valid, invalid or no role on tabpanel container. Leave blank to simulate a missing role.",
     },
     tabs: {
-      name: "Tabs",
+      name: "Update Individual Tabs",
       control: { type: "object" },
       description:
         "Tab items array. Use `removeTabRole` or `removeAriaControls` on any tab to simulate accessibility issues.",
@@ -78,10 +86,7 @@ export default {
       control: { type: "select" },
       options: [
         "Default",
-        "Invalid ARIA (aria-chosen)",
-        "Missing aria-controls",
-        "Automated Activation",
-        "Missing Roles",
+        "Remove Role Tabpanel",
         "Remove tab role from second tab only",
       ],
       description: "Preload test scenarios for accessibility validation tools.",
@@ -105,11 +110,11 @@ export const ResponsiveTabs: StoryObj = {
       case "Automated Activation":
         args.triggerActivation = "automated";
         break;
-      case "Missing Roles":
+      case "Remove role tabpanel":
         args.tabPanelRole = "";
-        tabs = tabs.map(tab => ({ ...tab, removeTabRole: true }));
+        //tabs = tabs.map(tab => ({ ...tab, removeTabRole: true }));
         break;
-      case "Remove tab role from second tab only":
+      case "Remove tab role from second tab.":
         tabs = tabs.map((tab, i) =>
           i === 1 ? { ...tab, removeTabRole: true } : tab
         );
@@ -122,6 +127,7 @@ export const ResponsiveTabs: StoryObj = {
         .tabAttributeMode=${args.tabAttributeMode}
         .triggerActivation=${args.triggerActivation}
         .tabPanelRole=${args.tabPanelRole}
+        .tabListRole=${args.tabListRole}
       ></db-wc-tabs>
     `;
   },
@@ -130,6 +136,7 @@ export const ResponsiveTabs: StoryObj = {
     tabAttributeMode: "aria-selected",
     triggerActivation: "manual",
     tabPanelRole: "tabpanel",
+    tabListRole: "tablist",
     tabs: defaultTabs,
   },
 };

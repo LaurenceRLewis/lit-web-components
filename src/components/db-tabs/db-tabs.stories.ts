@@ -48,6 +48,17 @@ export default {
     controls: { expanded: true },
   },
   argTypes: {
+    scenario: {
+      name: "Preset Scenario",
+      control: { type: "select" },
+      options: [
+        "Default",
+        "Remove Role Tabpanel",
+        "Remove tab role from second tab only",
+      ],
+      description: "Preload test scenarios for accessibility validation tools.",
+      table: { order: 1 },
+    },
     tabAttributeMode: {
       name: "Role tab attribute",
       control: { type: "select" },
@@ -80,16 +91,6 @@ export default {
       control: { type: "object" },
       description:
         "Tab items array. Use `removeTabRole` or `removeAriaControls` on any tab to simulate accessibility issues.",
-    },
-    scenario: {
-      name: "Preset Scenario",
-      control: { type: "select" },
-      options: [
-        "Default",
-        "Remove Role Tabpanel",
-        "Remove tab role from second tab only",
-      ],
-      description: "Preload test scenarios for accessibility validation tools.",
     },
   },
 } satisfies Meta;
@@ -125,18 +126,18 @@ export const ResponsiveTabs: StoryObj = {
       <db-wc-tabs
         .tabs=${tabs}
         .tabAttributeMode=${args.tabAttributeMode}
-        .triggerActivation=${args.triggerActivation}
         .tabPanelRole=${args.tabPanelRole}
         .tabListRole=${args.tabListRole}
+        .triggerActivation=${args.triggerActivation}
       ></db-wc-tabs>
     `;
   },
   args: {
     scenario: "Default",
     tabAttributeMode: "aria-selected",
-    triggerActivation: "manual",
     tabPanelRole: "tabpanel",
     tabListRole: "tablist",
+    triggerActivation: "manual",
     tabs: defaultTabs,
   },
 };

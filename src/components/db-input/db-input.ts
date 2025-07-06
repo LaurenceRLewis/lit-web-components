@@ -1,7 +1,7 @@
-import { LitElement, html, css, nothing } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { LitElement, html, css, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-@customElement("db-form-input")
+@customElement('db-form-input')
 export class FormInput extends LitElement {
   static styles = css`
     :host {
@@ -10,12 +10,6 @@ export class FormInput extends LitElement {
     }
 
     ::slotted(label) {
-      display: block;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-
-    label.fallback {
       display: block;
       margin-bottom: 4px;
       font-weight: bold;
@@ -30,18 +24,18 @@ export class FormInput extends LitElement {
     }
   `;
 
-  @property({ type: String }) labelText = "";
-  @property({ type: String }) inputType: "text" | "email" | "tel" | "url" = "text";
+  @property({ type: String }) inputType: 'text' | 'email' | 'tel' | 'url' = 'text';
   @property({ type: String }) autoComplete:
-    | ""
-    | "name"
-    | "given-name"
-    | "family-name"
-    | "email"
-    | "tel"
-    | "username" = "";
-  @property({ type: String }) ariaLabel = "";
+    | ''
+    | 'name'
+    | 'given-name'
+    | 'family-name'
+    | 'email'
+    | 'tel'
+    | 'username' = '';
+  @property({ type: String }) ariaLabel = '';
   @property({ type: String, reflect: true }) inputId = `input-${Math.random().toString(36).slice(2, 8)}`;
+  @property({ type: String }) labelText = '';
 
   render() {
     const hasLabelSlot = !!this.querySelector('[slot="label"]');
@@ -49,8 +43,9 @@ export class FormInput extends LitElement {
 
     return html`
       ${showFallback
-        ? html`<label class="fallback" for=${this.inputId}>${this.labelText}</label>`
+        ? html`<label for=${this.inputId}>${this.labelText}</label>`
         : html`<slot name="label"></slot>`}
+
       <input
         id=${this.inputId}
         type=${this.inputType}

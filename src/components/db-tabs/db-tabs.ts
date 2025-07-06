@@ -7,6 +7,8 @@ interface TabItem {
   id: string;
   title: string;
   content: unknown;
+  removeTabRole?: boolean;
+  removeAriaControls?: boolean;
 }
 
 interface ColorSet {
@@ -32,7 +34,6 @@ export class WcTabs extends LitElement {
   @property({ type: Boolean }) tabPanelTabindex = false;
   @property({ type: String }) triggerActivation: 'manual' | 'automated' = 'manual';
 
-  // Fix: prevent Lit from trying to reflect object to attribute
   @property({ attribute: false }) textColor: ColorSet = {
     default: 'rgba(0, 0, 0, 1)',
     selected: 'rgba(255, 255, 255, 1)',
@@ -126,7 +127,7 @@ export class WcTabs extends LitElement {
       case 'aria-expanded':
         return { 'aria-expanded': isSelected };
       case 'aria-chosen':
-        return { 'aria-chosen': isSelected }; // intentionally invalid
+        return { 'aria-chosen': isSelected };
       case 'aria-selected':
       default:
         return { 'aria-selected': isSelected };
@@ -167,15 +168,16 @@ export class WcTabs extends LitElement {
               </div>
             `)
           : html`
-              <div class="tabList" role="tablist" aria-label="Tab widget deliberately broken for automation tool testing">
+              <div class="tabList" role="tablist" aria-label="Tabs component for accessibility testing">
                 ${this.tabs.map(tab => {
                   const attrMap = this.getTabAttribute(this.tabAttributeMode, this.selectedTabId === tab.id);
                   return html`
                     <button
                       id=${tab.id}
-                      role="tab"
                       class="tab"
-                      aria-controls="tabpanel-${tab.id}"
+                      ?hidden=${!tab.title}
+                      role=${tab.removeTabRole ? nothing : 'tab'}
+                      aria-controls=${tab.removeAriaControls ? nothing : `tabpanel-${tab.id}`}
                       tabindex=${this.selectedTabId === tab.id ? 0 : -1}
                       style=${styleMap({
                         color: this.selectedTabId === tab.id

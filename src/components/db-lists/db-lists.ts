@@ -1,4 +1,4 @@
-import { LitElement, html, css, nothing } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 type ListType = 'ul' | 'ol';
@@ -20,12 +20,14 @@ export class DbLists extends LitElement {
 
     ul,
     ol,
-    div[role='list'] {
-      padding: 1rem;
+    div[role='list'],
+    div {
+      padding-left: 1.25rem;
       margin: 0;
     }
 
-    li {
+    li,
+    div > div {
       margin-bottom: 0.5rem;
     }
   `;
@@ -41,35 +43,33 @@ export class DbLists extends LitElement {
     if (this.scenario === 'Slot list items') {
       return html`<slot></slot>`;
     }
+
     return this.items.map(item => html`<li>${item}</li>`);
   }
 
   render() {
-    const isSlot = this.scenario === 'Slot list items';
-    const isDivNoRole = this.scenario === 'Div with no role';
-    const missingOpening = this.scenario === 'Missing opening tag';
-    const missingClosing = this.scenario === 'Missing closing tag';
+    switch (this.scenario) {
+      case 'Div with no role':
+        return html`<div>${this.renderListItems()}</div>`;
 
-    if (isDivNoRole) {
-      return html`<div>${this.renderListItems()}</div>`;
-    }
+      case 'Missing opening tag':
+        return html`${this.renderListItems()}</${this.listType}>`;
 
-    if (missingOpening) {
-      return html`${this.renderListItems()}</${this.listType}>`;
-    }
+      case 'Missing closing tag':
+        return this.listType === 'ul'
+          ? html`<ul>${this.renderListItems()}`
+          : html`<ol>${this.renderListItems()}`;
 
-    if (missingClosing) {
-      if (this.listType === 'ul') {
-        return html`<ul>${this.renderListItems()}`;
-      } else {
-        return html`<ol>${this.renderListItems()}`;
-      }
-    }
+      case 'Slot list items':
+        return this.listType === 'ul'
+          ? html`<ul><slot></slot></ul>`
+          : html`<ol><slot></slot></ol>`;
 
-    if (this.listType === 'ul') {
-      return html`<ul>${this.renderListItems()}</ul>`;
-    } else {
-      return html`<ol>${this.renderListItems()}</ol>`;
+      case 'Default':
+      default:
+        return this.listType === 'ul'
+          ? html`<ul>${this.renderListItems()}</ul>`
+          : html`<ol>${this.renderListItems()}</ol>`;
     }
   }
 }

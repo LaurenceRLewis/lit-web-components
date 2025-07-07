@@ -1,7 +1,6 @@
 import "./db-lists";
 import { html } from "lit";
 import type { Meta, StoryObj } from "@storybook/web-components";
-import { nothing } from "lit";
 import { ListDescription } from "./db-lists-description";
 
 export default {
@@ -17,10 +16,10 @@ export default {
       control: { type: "select" },
       options: [
         "Default",
-        "Replace list with <div>",
+        "Div with no role",
         "Missing opening tag",
         "Missing closing tag",
-        "Slot Items",
+        "Slot list items",
       ],
       description: "Choose the test case to simulate list structure issues.",
       table: { order: 1 },
@@ -46,9 +45,18 @@ export const StaticList: StoryObj = {
 export const SlottedList: StoryObj = {
   name: "List (content via Slot)",
   args: {
-    scenario: "Slot Items",
+    scenario: "Slot list items",
     listType: "ul",
   },
+  render: (args) => html`
+    <db-lists .scenario=${args.scenario} .listType=${args.listType}>
+      <li>Tesla</li>
+      <li>Volkswagen</li>
+      <li>Holden</li>
+      <li>Kia</li>
+      <li>Nissan</li>
+    </db-lists>
+  `,
 };
 
 export const Docs = {

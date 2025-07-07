@@ -51,35 +51,31 @@ export const Overview = {
     <div class="docs--wrapper">
       <h1>Accessible Web Components Library</h1>
       <p>
-        This Storybook showcases a series of deliberately broken and standards-compliant web components built using the <strong>Lit</strong> framework.
+        This Storybook showcases a set of intentionally broken and WCAG-compliant Web Components built using the <strong>Lit</strong> framework.
       </p>
       <p>
-        Components in this library are designed for testing and demonstration purposes, including:
+        Each component supports <strong>test scenarios</strong> that simulate accessibility issues commonly flagged by automated tools or missed during manual QA, including:
       </p>
       <ul>
-        <li>ARIA attribute misuse (e.g. <code>aria-chosen</code>)</li>
-        <li>Missing or invalid <code>role</code> and <code>aria-labelledby</code> combinations</li>
-        <li>Accessible name computation failures</li>
-        <li>Correct and incorrect <code>autocomplete</code> patterns</li>
+        <li>Incorrect or unsupported ARIA attributes (e.g. <code>aria-chosen</code>)</li>
+        <li>Missing <code>role</code> values for critical landmarks or interactive widgets</li>
+        <li>Invalid or broken <code>aria-labelledby</code> and <code>aria-controls</code> relationships</li>
+        <li>Autofill and name computation issues caused by missing <code>autocomplete</code> or improper label association</li>
+        <li>Structural issues like missing or malformed list markup (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>)</li>
       </ul>
       <p>
-        Each component is a true <strong>Web Component</strong>, using Shadow DOM, scoped styling, and standard property binding. The Storybook props panel allows you to toggle between valid and invalid configurations for accessibility evaluation tools.
-      </p>
-      <p>
-        Use this environment to test against automation tools.
+        All components use <strong>Shadow DOM</strong> and scoped styles. Many expose <code>&lt;slot&gt;</code> elements to allow flexible light DOM projection while maintaining accessibility integrity.
       </p>
 
-      <h2>Using <code>&lt;slot&gt;</code> in Web Components</h2>
+      <h2>Using <code>&lt;slot&gt;</code> for Accessible Naming</h2>
 
       <p>
-        The <strong>Input</strong> component in this library uses the <code>&lt;slot&gt;</code> element to enable accessible and flexible content projection. Specifically, it exposes a <code>slot="label"</code> so that developers can provide their own <code>&lt;label&gt;</code> element in the light DOM, while the native <code>&lt;input&gt;</code> remains in the Shadow DOM.
+        The <strong>db-form-input</strong> component uses a named slot (<code>slot="label"</code>) to allow you to inject a visible label from the light DOM. This enables:
       </p>
-
-      <p>This approach supports:</p>
       <ul>
-        <li>Accessible name computation through standard <code>for</code>/<code>id</code> associations</li>
-        <li>True semantic representation in developer tools and assistive technologies</li>
-        <li>Design flexibility by allowing custom layout or heading structures inside the slotted label</li>
+        <li>Use of standard <code>&lt;label for&gt;</code> syntax</li>
+        <li>Fully accessible name computation without relying on <code>aria-label</code></li>
+        <li>Custom layout or heading placement for screen reader structure</li>
       </ul>
 
       <p>Example usage:</p>
@@ -88,12 +84,22 @@ export const Overview = {
 &lt;/db-form-input&gt;
 </code></pre>
 
+      <h2>Testing Tab and List Structures</h2>
+
       <p>
-        This allows the input to remain fully encapsulated inside the component, while the label remains in the light DOM and accessible to screen readers — with no need for hardcoded <code>aria-label</code> values or inflexible markup inside the component itself.
+        Components like <strong>db-wc-tabs</strong> and <strong>db-lists</strong> allow simulation of broken roles, invalid attribute combinations, or misused markup:
+      </p>
+      <ul>
+        <li><strong>Tabs:</strong> Remove <code>role="tab"</code> or <code>aria-controls</code> from one or more buttons</li>
+        <li><strong>Lists:</strong> Replace a semantic list with a <code>&lt;div&gt;</code>, omit the opening or closing tag, or supply <code>&lt;li&gt;</code> elements via slot</li>
+      </ul>
+
+      <p>
+        The goal of this Storybook is to create a controlled environment for verifying how well accessibility testing tools detect real-world markup mistakes.
       </p>
 
       <p>
-        This slotting technique ensures accessible naming, DOM clarity, and reusability — key goals in Web Component development.
+        Use the "Test Scenario" dropdown in each component to toggle between valid output and known accessibility failures.
       </p>
     </div>
   `,

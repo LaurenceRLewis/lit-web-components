@@ -67,6 +67,29 @@ export const Overview = {
         All components use <strong>Shadow DOM</strong> and scoped styles. Many expose <code>&lt;slot&gt;</code> elements to allow flexible light DOM projection while maintaining accessibility integrity.
       </p>
 
+      <h2>Why Web Components Use Both Light DOM and Shadow DOM</h2>
+
+      <p>
+        Web Components rely on both <strong>Light DOM</strong> and <strong>Shadow DOM</strong> to combine flexibility with encapsulation.
+      </p>
+      <ul>
+        <li>
+          <strong>Shadow DOM</strong> enables style and structure isolation, protecting internal markup from outside interference and preventing style leaks.
+        </li>
+        <li>
+          <strong>Light DOM</strong> allows developers to inject custom content into a component using <code>&lt;slot&gt;</code>, enabling semantic, accessible markup and custom user-facing labels.
+        </li>
+      </ul>
+      <p>
+        For example, a component might render a native <code>&lt;dialog&gt;</code> and apply scoped styling internally using Shadow DOM, while projecting user-defined paragraphs or headings into a slot from the light DOM.
+      </p>
+
+      <p><strong>The <code>&lt;slot&gt;</code> element bridges these two worlds.</strong> It allows content passed into the light DOM to be rendered in a specific location inside the shadow DOM without breaking encapsulation.</p>
+
+      <p>
+        This approach makes components both reusable and accessible, while avoiding the limitations of inline-only content or tightly-coupled markup.
+      </p>
+
       <h2>Using <code>&lt;slot&gt;</code> for Accessible Naming</h2>
 
       <p>

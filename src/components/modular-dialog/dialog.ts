@@ -20,7 +20,7 @@ export class DialogModal extends LitElement {
   @query('.close-button') closeButtonRef!: HTMLButtonElement;
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('open')) {
+    if (changed.has('ShowOpenDialog')) {
       this.toggleDialog();
     }
   }
@@ -111,21 +111,26 @@ export class DialogModal extends LitElement {
   }
 
   render() {
-    return html`
-      <div class="dialog-wrapper">
-        <dialog class="dialog">
-          <div class="dialog-content" tabindex="-1">
+  return html`
+    <div class="dialog-wrapper">
+      <dialog class="dialog">
+        <div class="dialog-content" tabindex="-1">
+          <slot name="heading">
             <h2 class="dialog-heading" tabindex="-1">${this.heading}</h2>
-            <slot></slot>
-            <p>Testing variations of the HTML dialog using Props.</p>
-            <p>
-              This is a
-              <a href="#" @click=${this.handleFakeLinkClick} class="fake-link">Fake Link</a>
-            </p>
-            <button type="button" class="close-button" @click=${this.handleClose}>Close</button>
-          </div>
-        </dialog>
-      </div>
-    `;
-  }
+          </slot>
+
+          <slot name="content"></slot>
+
+          <p>Testing variations of the HTML dialog using Props.</p>
+          <p>
+            This is a
+            <a href="#" @click=${this.handleFakeLinkClick} class="fake-link">Fake Link</a>
+          </p>
+
+          <button type="button" class="close-button" @click=${this.handleClose}>Close</button>
+        </div>
+      </dialog>
+    </div>
+  `;
+}
 }

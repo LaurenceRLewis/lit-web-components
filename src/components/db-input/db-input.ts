@@ -5,8 +5,9 @@ import { customElement, property } from 'lit/decorators.js';
 export class FormInput extends LitElement {
   static styles = css`
     :host {
-      display: block;
-      font-family: sans-serif;
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        line-height: 1.5;
     }
 
     ::slotted(label) {

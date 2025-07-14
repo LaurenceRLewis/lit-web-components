@@ -13,8 +13,9 @@ export class DbHeadings extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: system-ui, sans-serif;
-      line-height: 1.5;
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        line-height: 1.5;
       padding: 1rem;
     }
 

@@ -51,7 +51,7 @@ export const Overview = {
     <div class="docs--wrapper">
       <h1>Accessible Web Components Library</h1>
       <p>
-        This Storybook showcases a set of intentionally broken and WCAG-compliant Web Components built using the <strong>Lit</strong> framework.
+        This Storybook showcases a set of intentionally broken Web Components built using the <strong>Lit</strong> framework. This library is not intended for use in production. The purpose is to learn about web components and the accessibility gaps.
       </p>
       <p>
         Each component supports <strong>test scenarios</strong> that simulate accessibility issues commonly flagged by automated tools or missed during manual QA, including:
@@ -124,6 +124,7 @@ export const Overview = {
       <p>
         Use the "Test Scenario" dropdown in each component to toggle between valid output and known accessibility failures.
       </p>
+      <p><a href="https://github.com/LaurenceRLewis/lit-web-components">lit-web-components Github repro</a></p>
     </div>
   `,
 };

@@ -32,31 +32,55 @@ const presetMap: Record<string, any> = {
   },
 };
 
-const renderTemplate = (args: any) => `
-  <db-form-input
-    input-type="${args.inputType}"
-    aria-label="${args.ariaLabel}"
-    auto-complete="${args.autoComplete}"
-    input-id="${args.inputId}"
-    label-text="${args.labelText}"
-  >
-    ${args.labelText && !args.preset.includes('No Label')
-      ? `<label slot="label" for="${args.inputId}">${args.labelText}</label>`
-      : ''}
-  </db-form-input>
-`;
+const renderTemplate = (args: any) => {
+  const presetArgs = presetMap[args.preset] ?? {};
+  const merged = { ...args, ...presetArgs };
+
+  let labelMarkup = '';
+  if (merged.labelText && merged.preset !== 'No Label') {
+    switch (merged.associationType) {
+      case 'light-slot-shadow-input':
+        labelMarkup = `<label slot="label" for="${merged.inputId}">${merged.labelText}</label>`;
+        break;
+      case 'split-shadow':
+        labelMarkup = `<label slot="label" for="${merged.inputId}">${merged.labelText}</label>`;
+        break;
+      case 'same-shadow':
+      default:
+        labelMarkup = `<label slot="label" for="${merged.inputId}">${merged.labelText}</label>`;
+        break;
+    }
+  }
+
+  return `
+    <db-form-input
+      input-type="${merged.inputType}"
+      aria-label="${merged.ariaLabel}"
+      auto-complete="${merged.autoComplete}"
+      input-id="${merged.inputId}"
+      label-text="${merged.labelText}"
+    >
+      ${labelMarkup}
+    </db-form-input>
+  `;
+};
 
 export default {
   title: 'Deliberately broken for testing/Input',
   tags: ['autodocs'],
   component: 'db-form-input',
   argTypes: {
+    associationType: {
+      name: 'Label/Input Association',
+      control: { type: 'select' },
+      options: ['same-shadow', 'light-slot-shadow-input', 'split-shadow'],
+      description: 'Defines how the label and input are structured across DOM scopes.',
+    },
     preset: {
       name: 'Preset Scenario',
       control: { type: 'select' },
       options: ['Default', 'No Label', 'Wrong For', 'Missing Autocomplete'],
-      description: 'Quickly apply common test cases for accessibility validation',
-      table: { category: 'Test Presets' },
+      description: 'Predefined test cases for accessibility evaluation.',
     },
     inputType: {
       control: { type: 'select' },
@@ -71,15 +95,28 @@ export default {
     inputId: { control: 'text' },
   },
   args: {
+    associationType: 'same-shadow',
     preset: 'Default',
-    ...presetMap['Default'],
+    inputType: 'text',
+    autoComplete: '',
+    ariaLabel: '',
+    inputId: 'default-id-001',
+    labelText: 'First name',
   },
-  decorators: [
-    (storyFn: any, { args }: any) => {
-      const presetArgs = presetMap[args.preset] ?? {};
-      return storyFn({ ...args, ...presetArgs });
+  parameters: {
+    controls: {
+      expanded: true,
+      include: [
+        'associationType',
+        'preset',
+        'inputType',
+        'autoComplete',
+        'ariaLabel',
+        'labelText',
+        'inputId',
+      ],
     },
-  ],
+  },
 };
 
 export const Input = {

@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import './naming-inputs.ts';
+import './shadow-boundaries.js';
 
 const validScenarios = [
   'Shadow DOM Label and Input',
@@ -31,8 +31,8 @@ const associationOptions = [
 ];
 
 export default {
-  title: 'Deliberately broken for testing/Naming Inputs',
-  component: 'naming-inputs',
+  title: 'Deliberately broken for testing/Shadow Root Boundaries',
+  component: 'shadow-boundaries',
   argTypes: {
     activateAssociationTypeTests: {
       name: 'Activate Association Type Tests',
@@ -67,12 +67,12 @@ export const Default = (args: any) => {
       ? html`<label for="shared-id">Your name</label>`
       : null}
 
-    <naming-inputs
+    <shadow-boundaries
       .scenarioType=${args.scenarioType}
       .scenario=${args.scenario}
       .associationType=${args.associationType}
       .activateAssociationTypeTests=${args.activateAssociationTypeTests}
-    ></naming-inputs>
+    ></shadow-boundaries>
   `;
 };
 

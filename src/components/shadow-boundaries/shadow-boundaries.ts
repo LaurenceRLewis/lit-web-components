@@ -139,7 +139,7 @@ type Scenario =
   | 'Mismatched for and id'
   | 'Custom Association';
 
-@customElement('naming-inputs')
+@customElement('shadow-boundaries')
 export class NamingInputs extends LitElement {
   @property({ type: String }) scenarioType: ScenarioType = 'Valid';
   @property({ type: String }) scenario: Scenario = 'Custom Association';

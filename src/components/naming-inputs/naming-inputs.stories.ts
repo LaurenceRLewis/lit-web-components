@@ -5,6 +5,7 @@ const validScenarios = [
   'Shadow DOM Label and Input',
   'Light DOM Label with aria-labelledby',
   'Multiple Labels',
+  'Label in Light Slot with Shadow Input',
 ];
 
 const invalidScenarios = [
@@ -13,6 +14,18 @@ const invalidScenarios = [
   'Missing Input ID',
   'Label Without for',
   'Mismatched for and id',
+];
+
+const scenarioOptions = [
+  'Custom Association',
+  ...validScenarios,
+  ...invalidScenarios,
+];
+
+const associationOptions = [
+  'Label in Light DOM, input in Shadow DOM',
+  'Label slot in one shadow dom, input in another',
+  'Label in Light DOM and input in Shadow DOM (slot)',
 ];
 
 export default {
@@ -25,26 +38,36 @@ export default {
     },
     scenario: {
       control: { type: 'select' },
-      options: validScenarios, // will be updated dynamically
+      options: scenarioOptions,
+    },
+    associationType: {
+      control: { type: 'select' },
+      options: associationOptions,
     },
   },
 };
 
 export const Default = (args: any) => {
-  const options = args.scenarioType === 'Invalid' ? invalidScenarios : validScenarios;
-  if (!options.includes(args.scenario)) {
-    args.scenario = options[0];
-  }
+  const isCustom = args.scenario === 'Custom Association';
+  const scenario = isCustom ? '' : args.scenario;
+  const renderLabelOutside =
+    args.associationType === 'Label in Light DOM, input in Shadow DOM';
 
   return html`
+    ${renderLabelOutside
+      ? html`<label for="shared-id">Your name</label>`
+      : null}
+
     <naming-inputs
       .scenarioType=${args.scenarioType}
-      .scenario=${args.scenario}
+      .scenario=${scenario}
+      .associationType=${args.associationType}
     ></naming-inputs>
   `;
 };
 
 Default.args = {
   scenarioType: 'Valid',
-  scenario: 'Shadow DOM Label and Input',
+  scenario: 'Custom Association',
+  associationType: 'Label in Light DOM, input in Shadow DOM',
 };

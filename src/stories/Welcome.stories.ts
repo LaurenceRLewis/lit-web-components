@@ -3,13 +3,13 @@ import { html } from 'lit';
 import type { Meta } from '@storybook/web-components';
 
 export default {
-  title: 'Welcome/Overview',
+  title: 'Welcome/Introduction',
   parameters: {
     docsOnly: true,
   },
 } satisfies Meta;
 
-export const Overview = {
+export const Introduction = {
   render: () => html`
     <style>
       .docs--wrapper {

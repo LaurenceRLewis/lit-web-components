@@ -16,7 +16,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Welcome', 'Basic Components', 'Complex Components', 'Deliberately broken for testing'],
+        order: ['Welcome', 'Docs', 'Basic Components', 'Complex Components', 'Deliberately broken for testing'],
       },
     },
   },

@@ -21,7 +21,7 @@ export const Introduction = {
       }
 
       h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
         margin-bottom: 1rem;
       }
 
@@ -49,7 +49,7 @@ export const Introduction = {
     </style>
 
     <div class="docs--wrapper">
-      <h1>Accessible Web Components Library</h1>
+      <h1>Web Components - finding the accessibility gaps</h1>
       <p>
         This Storybook showcases a set of intentionally broken Web Components built using the <strong>Lit</strong> framework. This library is not intended for use in production. The purpose is to learn about web components and the accessibility gaps.
       </p>

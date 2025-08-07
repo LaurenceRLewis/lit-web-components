@@ -8,17 +8,19 @@ const validScenarios = [
   'Label in Light Slot with Shadow Input',
 ];
 
+const validMayNotBeAccessible = ['Aria Labelledby from Light DOM'];
+
 const invalidScenarios = [
-  'Aria Labelledby from Light DOM',
   'Light DOM Label with Shadow Input',
   'Missing Input ID',
   'Label Without for',
   'Mismatched for and id',
 ];
 
+// ❌ 'Custom Association' is now removed from this list
 const scenarioOptions = [
-  'Custom Association',
   ...validScenarios,
+  ...validMayNotBeAccessible,
   ...invalidScenarios,
 ];
 
@@ -32,42 +34,51 @@ export default {
   title: 'Deliberately broken for testing/Naming Inputs',
   component: 'naming-inputs',
   argTypes: {
+    activateAssociationTypeTests: {
+      name: 'Activate Association Type Tests',
+      control: { type: 'radio' },
+      options: ['Yes', 'No'],
+    },
     scenarioType: {
       control: { type: 'radio' },
-      options: ['Valid', 'Invalid'],
+      options: ['Valid', 'Valid - May not be accessible', 'Invalid'],
+      if: { arg: 'activateAssociationTypeTests', eq: 'No' },
     },
     scenario: {
       control: { type: 'select' },
       options: scenarioOptions,
+      if: { arg: 'activateAssociationTypeTests', eq: 'No' },
     },
     associationType: {
       control: { type: 'select' },
       options: associationOptions,
+      if: { arg: 'activateAssociationTypeTests', eq: 'Yes' },
     },
   },
 };
 
 export const Default = (args: any) => {
-  const isCustom = args.scenario === 'Custom Association';
-  const scenario = isCustom ? '' : args.scenario;
-  const renderLabelOutside =
+  const showCustomLabel =
+    args.activateAssociationTypeTests === 'Yes' &&
     args.associationType === 'Label in Light DOM, input in Shadow DOM';
 
   return html`
-    ${renderLabelOutside
+    ${showCustomLabel
       ? html`<label for="shared-id">Your name</label>`
       : null}
 
     <naming-inputs
       .scenarioType=${args.scenarioType}
-      .scenario=${scenario}
+      .scenario=${args.scenario}
       .associationType=${args.associationType}
+      .activateAssociationTypeTests=${args.activateAssociationTypeTests}
     ></naming-inputs>
   `;
 };
 
 Default.args = {
+  activateAssociationTypeTests: 'No',
   scenarioType: 'Valid',
-  scenario: 'Custom Association',
+  scenario: 'Shadow DOM Label and Input',
   associationType: 'Label in Light DOM, input in Shadow DOM',
 };

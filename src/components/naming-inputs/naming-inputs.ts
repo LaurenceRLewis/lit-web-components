@@ -125,7 +125,7 @@ class MobileInput extends LitElement {
   }
 }
 
-type ScenarioType = 'Valid' | 'Invalid';
+type ScenarioType = 'Valid' | 'Invalid' | 'Valid - May not be accessible';
 
 type Scenario =
   | 'Shadow DOM Label and Input'
@@ -136,12 +136,13 @@ type Scenario =
   | 'Light DOM Label with Shadow Input'
   | 'Missing Input ID'
   | 'Label Without for'
-  | 'Mismatched for and id';
+  | 'Mismatched for and id'
+  | 'Custom Association';
 
 @customElement('naming-inputs')
 export class NamingInputs extends LitElement {
   @property({ type: String }) scenarioType: ScenarioType = 'Valid';
-  @property({ type: String }) scenario: Scenario | string = 'Shadow DOM Label and Input';
+  @property({ type: String }) scenario: Scenario = 'Custom Association';
   @property({ type: String }) associationType: string = 'Label in Light DOM, input in Shadow DOM';
 
   static styles = css`
@@ -184,7 +185,6 @@ export class NamingInputs extends LitElement {
             <shadow-input-element inputId="shared-id"></shadow-input-element>
           </section>
         `;
-
       case 'Label slot in one shadow dom, input in another':
         return html`
           <section>
@@ -195,7 +195,6 @@ export class NamingInputs extends LitElement {
             <label-receiver-element></label-receiver-element>
           </section>
         `;
-
       case 'Label in Light DOM and input in Shadow DOM (slot)':
         return html`
           <section>
@@ -205,102 +204,91 @@ export class NamingInputs extends LitElement {
             </shadow-input-element>
           </section>
         `;
-
       default:
         return html`<p>Unknown associationType</p>`;
     }
   }
 
   render() {
-    const knownScenarios: Scenario[] = [
-      'Shadow DOM Label and Input',
-      'Light DOM Label with aria-labelledby',
-      'Multiple Labels',
-      'Label in Light Slot with Shadow Input',
-      'Aria Labelledby from Light DOM',
-      'Light DOM Label with Shadow Input',
-      'Missing Input ID',
-      'Label Without for',
-      'Mismatched for and id',
-    ];
-
-    if (knownScenarios.includes(this.scenario as Scenario)) {
-      switch (this.scenario) {
-        case 'Shadow DOM Label and Input':
-          return html`
-            <section>
-              <h2>Shadow DOM Label and Input</h2>
-              <given-name-input></given-name-input>
-            </section>
-          `;
-        case 'Light DOM Label with aria-labelledby':
-          return html`
-            <section>
-              <h2>Light DOM Label with aria-labelledby</h2>
-              <h3 id="labelLight">Your mobile</h3>
-              <input type="tel" aria-labelledby="labelLight" />
-            </section>
-          `;
-        case 'Multiple Labels':
-          return html`
-            <section>
-              <h2>Multiple Labels</h2>
-              <label for="multi">Email Address</label>
-              <label for="multi">Primary Email</label>
-              <input type="email" id="multi" />
-            </section>
-          `;
-        case 'Label in Light Slot with Shadow Input':
-          return html`
-            <section>
-              <h2>Label in Light Slot with Shadow Input</h2>
-              <shadow-input-element>
-                <label slot="label" for="shadowed-input">Given name</label>
-              </shadow-input-element>
-            </section>
-          `;
-        case 'Aria Labelledby from Light DOM':
-          return html`
-            <section>
-              <h2>Aria Labelledby from Light DOM</h2>
-              <mobile-input></mobile-input>
-            </section>
-          `;
-        case 'Light DOM Label with Shadow Input':
-          return html`
-            <section>
-              <h2>Light DOM Label with Shadow Input</h2>
-              <label for="email">Email</label>
-              <email-input></email-input>
-            </section>
-          `;
-        case 'Missing Input ID':
-          return html`
-            <section>
-              <h2>Missing Input ID</h2>
-              <label for="broken-id">Broken Label</label>
-              <input type="text" />
-            </section>
-          `;
-        case 'Label Without for':
-          return html`
-            <section>
-              <h2>Label Without for</h2>
-              <label>Unlinked Label</label>
-              <input type="text" id="orphaned-input" />
-            </section>
-          `;
-        case 'Mismatched for and id':
-          return html`
-            <section>
-              <h2>Mismatched for and id</h2>
-              <label for="foo">Email</label>
-              <input type="email" id="bar" />
-            </section>
-          `;
-      }
+    if (this.scenario === 'Custom Association') {
+      return this.renderAssociationTypes();
     }
 
-    return this.renderAssociationTypes();
+    switch (this.scenario) {
+      case 'Shadow DOM Label and Input':
+        return html`
+          <section>
+            <h2>Shadow DOM Label and Input</h2>
+            <given-name-input></given-name-input>
+          </section>
+        `;
+      case 'Light DOM Label with aria-labelledby':
+        return html`
+          <section>
+            <h2>Light DOM Label with aria-labelledby</h2>
+            <h3 id="labelLight">Your mobile</h3>
+            <input type="tel" aria-labelledby="labelLight" />
+          </section>
+        `;
+      case 'Multiple Labels':
+        return html`
+          <section>
+            <h2>Multiple Labels</h2>
+            <label for="multi">Email Address</label>
+            <label for="multi">Primary Email</label>
+            <input type="email" id="multi" />
+          </section>
+        `;
+      case 'Label in Light Slot with Shadow Input':
+        return html`
+          <section>
+            <h2>Label in Light Slot with Shadow Input</h2>
+            <shadow-input-element>
+              <label slot="label" for="shadowed-input">Given name</label>
+            </shadow-input-element>
+          </section>
+        `;
+      case 'Aria Labelledby from Light DOM':
+        return html`
+          <section>
+            <h2>Aria Labelledby from Light DOM</h2>
+            <mobile-input></mobile-input>
+          </section>
+        `;
+      case 'Light DOM Label with Shadow Input':
+        return html`
+          <section>
+            <h2>Light DOM Label with Shadow Input</h2>
+            <label for="email">Email</label>
+            <email-input></email-input>
+          </section>
+        `;
+      case 'Missing Input ID':
+        return html`
+          <section>
+            <h2>Missing Input ID</h2>
+            <label for="broken-id">Broken Label</label>
+            <input type="text" />
+          </section>
+        `;
+      case 'Label Without for':
+        return html`
+          <section>
+            <h2>Label Without for</h2>
+            <label>Unlinked Label</label>
+            <input type="text" id="orphaned-input" />
+          </section>
+        `;
+      case 'Mismatched for and id':
+        return html`
+          <section>
+            <h2>Mismatched for and id</h2>
+            <label for="foo">Email</label>
+            <input type="email" id="bar" />
+          </section>
+        `;
+      default:
+        return html`<p>Unknown scenario</p>`;
+    }
   }
 }

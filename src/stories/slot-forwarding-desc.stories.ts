@@ -2,7 +2,7 @@ import { html } from "lit";
 import type { Meta, StoryObj } from "@storybook/web-components";
 
 const meta = {
-  title: "Docs/Slot Forwarding",
+  title: "Docs/About Slot",
   parameters: {
     docsOnly: true,
     controls: { hideNoControlsWarning: true },
@@ -12,7 +12,7 @@ const meta = {
 
 export default meta;
 
-export const SlotForwarding: StoryObj = {
+export const AboutSlot: StoryObj = {
   render: () => html`
     <style>
       .docs--wrapper {

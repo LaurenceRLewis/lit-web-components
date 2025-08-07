@@ -62,8 +62,10 @@ export const Input = (args: any) => html`
   ></input-testing>
 `;
 
+import { InputDescription } from './input-testing.description.js';
+
 export const Docs = {
-  render: () => html`<p>This story demonstrates label/input association scenarios across Shadow DOM and light DOM combinations.</p>`,
+  render: () => InputDescription,
   parameters: {
     docsOnly: true,
   },

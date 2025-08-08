@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/web-components';
+import '../src/styles/storybook-global.css';
 
 const preview: Preview = {
   parameters: {

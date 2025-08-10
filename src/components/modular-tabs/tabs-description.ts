@@ -1,3 +1,4 @@
+//tabs-description.ts
 import { html, TemplateResult } from "lit";
 
 export const TabsDescription: TemplateResult = html`

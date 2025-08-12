@@ -45,6 +45,7 @@ export const TabsDescription: TemplateResult = html`
 
   <div class="docs--wrapper">
     <h1>Modular Tabs Web Component</h1>
+    <p>Testing thus far has identified accessibility gaps in modularising a Tab component</p>
     <p>
       The <strong>ModularTabs</strong> system is a composable, accessible tab
       interface built with Lit. It consists of smaller building

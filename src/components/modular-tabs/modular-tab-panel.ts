@@ -25,6 +25,7 @@ export class ModularTabPanel extends LitElement {
 
   @property({ type: Boolean, reflect: true }) hidden = false;
   @property({ type: Number }) tabindex = -1;
+  @property({ type: String }) ariaLabel = '';
 
   /** Internal cache to ensure we render an aria-label once known. */
   private _ariaLabel: string | undefined;

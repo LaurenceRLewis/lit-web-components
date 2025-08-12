@@ -43,11 +43,6 @@ export class ModularTab extends LitElement {
 
   @property({ type: String }) id = '';
   @property({ type: Boolean }) selected = false;
-  @property({ type: String }) textColor = 'rgba(0, 0, 0, 1)';
-  @property({ type: Object }) background = {
-    default: 'rgba(209, 203, 219, 1)',
-    selected: 'rgba(156, 39, 176, 1)',
-  };
   @property({ type: String }) triggerActivation: 'manual' | 'automated' = 'manual';
 
   connectedCallback() {
@@ -94,12 +89,6 @@ export class ModularTab extends LitElement {
         role="tab"
         aria-selected=${this.selected}
         aria-controls="panel-${this.id}"
-        style=${styleMap({
-          color: this.textColor,
-          backgroundColor: this.selected
-            ? this.background.selected
-            : this.background.default,
-        })}
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
         @focus=${this.handleFocus}
